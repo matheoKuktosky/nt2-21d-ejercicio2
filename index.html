@@ -336,7 +336,7 @@
         computed: {
             personasFiltradas() {
                 let personasReturn = this.personas;
-                gpersonasReturn.filter(p => this.getNombreCompleto(p).toLowerCase().includes(this.filtroNombre.toLowerCase()));
+                if (this.filtroNombre.length >= 1) personasReturn = personasReturn.filter(p => this.getNombreCompleto(p).toLowerCase().includes(this.filtroNombre.toLowerCase()));
                 if (this.filtroDNI.length >= 1) personasReturn = personasReturn.filter(p => p.dni.includes(this.filtroDNI.toLowerCase()));
                 return personasReturn;
             }

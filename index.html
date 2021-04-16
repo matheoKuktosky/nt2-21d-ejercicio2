@@ -14,8 +14,8 @@
 
 
 <div class="container-fluid mt-3" id="app">
-    <input type="text" class="form-control" v-model="criterioDeBusqueda"
-        placeholder="Ingresar un criterio de busqueda...">
+    <input type="text" class="form-control" v-model="filtroNombre" placeholder="Busca por Nombre">
+    <input type="text" class="form-control" v-model="filtroDNI" placeholder="Busca por DNI">
     <br>
     <div class="card-deck m-0">
         <div class="row">
@@ -39,7 +39,8 @@
     new Vue({
         el: '#app',
         data: {
-            criterioDeBusqueda: '',
+            filtroNombre: '',
+            filtroDNI: '',
             //Aquí, en este array es donde tienen que agregar su información
             personas: [
                 {
@@ -334,10 +335,10 @@
         },
         computed: {
             personasFiltradas() {
-                return this.personas.filter((persona) => {
-                    let registroCompleto = `${persona.nombre} ${persona.apellido} ${persona.dni} ${persona.correo}`
-                    return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
-                });
+                let personasReturn = this.personas;
+                gpersonasReturn.filter(p => this.getNombreCompleto(p).toLowerCase().includes(this.filtroNombre.toLowerCase()));
+                if (this.filtroDNI.length >= 1) personasReturn = personasReturn.filter(p => p.dni.includes(this.filtroDNI.toLowerCase()));
+                return personasReturn;
             }
         },
         methods: {
